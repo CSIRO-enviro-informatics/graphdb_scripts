@@ -2,8 +2,6 @@
 set -e
 
 HOST_ADDRESS="http://localhost:7200"
-SPARQL_ENDPOINT="$HOST_ADDRESS/repositories/$REPO_NAME"
-STATEMENTS_ENDPOINT="$SPARQL_ENDPOINT/statements"
 
 # Check for dependant env variables.
 [ -z "${APP_HOME}" ] && echo "APP_HOME not set" && exit 1
@@ -14,6 +12,8 @@ STATEMENTS_ENDPOINT="$SPARQL_ENDPOINT/statements"
 [ -z "${PRELOAD_CHUNK_SIZE}" ] && echo "PRELOAD_CHUNK_SIZE not set - using 1m" && PRELOAD_CHUNK_SIZE=1m
 [ -z "${PRELOAD_ITER_SIZE}" ] && echo "PRELOAD_ITER_SIZE not set - using 6400" && PRELOAD_ITER_SIZE=6400
 
+SPARQL_ENDPOINT="$HOST_ADDRESS/repositories/$REPO_NAME"
+STATEMENTS_ENDPOINT="$SPARQL_ENDPOINT/statements"
 
 env
 
