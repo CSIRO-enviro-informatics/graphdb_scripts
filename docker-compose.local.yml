@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+    graphcache:
+        build:
+            context: ./docker
+            dockerfile: Dockerfile
+        #image: csiroenvinf/loci-cache:local-build
+        environment: 
+            - GRAPHDB_HOME
+            - GRAPHDB_SOURCE
+            - FORCE_REFRESH
+            - SKIP_DOWNLOAD 
+            - GDB_HEAP_SIZE=${GDB_HEAP_SIZE:-1g}
+        volumes:
+            - "/tmp:/tmp"
+            - "graphdb_data:${GRAPHDB_HOME}"
+            - "./cachedata:${GRAPHDB_SOURCE}"
+        ports:
+            - "${PORT:7200}:7200"
+
+volumes:
+    graphdb_data:
+    data_cache:

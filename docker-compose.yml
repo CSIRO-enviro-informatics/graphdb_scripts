@@ -1,0 +1,25 @@
+version: "3.7"
+
+services:
+    graphcache:
+        build:
+            context: ./docker
+            dockerfile: Dockerfile
+        environment: 
+            - GRAPHDB_HOME
+            - GRAPHDB_SOURCE
+            - FORCE_REFRESH
+            - GDB_HEAP_SIZE=${GDB_HEAP_SIZE:-3g}
+            - PRELOAD_CHUNK_SIZE=${PRELOAD_CHUNK_SIZE:-1000}
+            - PRELOAD_ITER_SIZE=${PRELOAD_ITER_SIZE:-500}
+        volumes:
+            - "/tmp:/tmp"
+            - "graphdb_data:${GRAPHDB_HOME}"
+            - "data_cache:${GRAPHDB_SOURCE}"
+        ports:
+            - "${PORT:-7200}:7200"
+        #command: "tail -f /dev/null"
+
+volumes:
+    graphdb_data:
+    data_cache:
